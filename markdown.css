@@ -147,7 +147,8 @@ h1, h2, h3, h4, h5, h6
   { margin-top : var( --line-height )
   ; margin-bottom : var( --line-height )
   }
-
+:is( h1, h2, h3, h4, h5, h6 ):not(:first-child)
+  { margin-top : calc( 2 * var( --line-height ) ) }
 
 b::before
 , b::after
@@ -165,6 +166,10 @@ i::before
   ; display : inline
   }
 
+[title]::after
+  { content : ' /*' attr(title) '*/'
+  ; display : inline
+  }
 
 a
   { text-decoration : none }
@@ -174,6 +179,10 @@ a::before
   }
 a::after
   { content : '](' attr(href) ')'
+  ; display : inline
+  }
+a[title]::after
+  { content : '](' attr(href) ') /*' attr(title) '*/'
   ; display : inline
   }
 
@@ -219,15 +228,16 @@ input[type=text]
   }
 
 
-/* only opera support before and after with img :(*/
 img
-  { display : inline-block }
+  { display : inline
+  /*; overflow : hidden*/
+  }
 img::before
-  { ; content : '![' attr(alt)
+  { content : '![' attr(alt)
   ; display : inline-block
   }
 img::after
-  { ; content : '](' attr(src) ')'
+  { content : '](' attr(src) ')'
   ; display : inline-block
   }
 
@@ -257,6 +267,8 @@ img::after
   ; --dark-gray : hsl( 50, 11%, 41%, 50% )
   }
 
+abbr
+  { color : var( --light-orange ) }
 h1, h2, h3, h4, h5, h6
   { color : var( --orange ) }
 a:any-link
@@ -271,4 +283,6 @@ ol > li::before
   { color : var( --purple ) }
 
 [title]::after
-  { color : var( --light-orange ) }
+, [title]::after::after
+  { color : var( --dark-gray ) }
+
