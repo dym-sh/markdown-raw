@@ -18,6 +18,7 @@
   ; --gray : hsl( 50, 11%, 41% )
   }
 
+
 * { margin : 0
   ; padding : 0
   ; word-wrap : break-word
@@ -27,9 +28,11 @@
   ; line-height : var( --line-height, 1.3em )
   ; font-weight : normal
   ; font-style : normal
-  ; font-family : consolas
-                , monaco
-                , "courier new"
+  ; font-family : 'Consolas'
+                , 'Monaco'
+                , 'DejaVu Sans Mono'
+                , 'PT Mono'
+                , 'Courier New'
                 , monospace
   }
 
@@ -38,7 +41,7 @@ body
   ; min-width : 25em
   ; max-width : 80vw
   ; margin : 0 auto
-  ; padding : 5em
+  ; padding : 2em 10em
   }
 
 h1, h2, h3, h4, h5, h6
@@ -58,6 +61,8 @@ h1, h2, h3, h4, h5, h6
 
 :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )[dir=rtl]::before
 , [dir=rtl] :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
+, :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre ):dir(rtl)::before
+, :dir(rtl) :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
   { right : unset
   ; left : 100%
   ; margin-right : unset
@@ -79,43 +84,80 @@ blockquote::before
   { content : '>' }
 ul > li::before
   { content : '-' }
+ul ul > li::before
+  { content : '-\00a0-' }
+ul ul ul > li::before
+  { content : '-\00a0-\00a0-' }
 pre::before
   { content : '```' }
-
 
 li
   { list-style : none }
 
 ol
-  { counter-reset : ol_1 }
+  { counter-reset : ol_lvl_1 }
 ol ol
-  { margin-left : 2em
-  ; counter-reset : ol_2
-  }
-ol ol[dir=rtl]
-, [dir=rtl] ol ol
-  { margin-left : unset
-  ; margin-right : 2em
-  }
+  { counter-reset : ol_lvl_2 }
 ol ol ol
-  { counter-reset : ol_3 }
+  { counter-reset : ol_lvl_3 }
 
 ol > li::before
-  { content : counter( ol_1 ) '.'
-  ; counter-increment : ol_1
+  { content : counter( ol_lvl_1 ) '.'
+  ; counter-increment : ol_lvl_1
   }
+ol > li:has(ol:first-child)::before
+  { display : none }
+ol > li > ol:first-child > li::before
+  { background : var( --bg )
+  }
+
 ol ol > li::before
-  { content : counter( ol_2 ) '.'
-  ; counter-increment : ol_2
+  { content : counter( ol_lvl_1 ) '.' counter( ol_lvl_2 ) '.'
+  ; counter-increment : ol_lvl_2
   }
+[dir=rtl] ol ol > li::before
+, ol[dir=rtl] ol > li::before
+, ol ol[dir=rtl] > li::before
+, ol ol > li[dir=rtl]::before
+, :dir(rtl) ol ol > li::before
+, ol:dir(rtl) ol > li::before
+, ol ol:dir(rtl) > li::before
+, ol ol > li:dir(rtl)::before
+  { content : counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
+  }
+
+ol ol > li:has(ol:first-child)::before
+  { display : none }
+ol ol > li > ol:first-child > li::before
+  { background : var( --bg ) }
+
 ol ol ol > li::before
-  { content : counter( ol_3 ) '.'
-  ; counter-increment : ol_3
+  { content : counter( ol_lvl_1 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_3 ) '.'
+  ; counter-increment : ol_lvl_3
+  }
+[dir=rtl] ol ol ol > li::before
+, ol[dir=rtl] ol ol > li::before
+, ol ol[dir=rtl] ol > li::before
+, ol ol ol[dir=rtl] > li::before
+, ol ol ol > li[dir=rtl]::before
+, :dir(rtl) ol ol ol > li::before
+, ol:dir(rtl) ol ol > li::before
+, ol ol:dir(rtl) ol > li::before
+, ol ol ol:dir(rtl) > li::before
+, ol ol ol > li:dir(rtl)::before
+  { content : counter( ol_lvl_3 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
   }
 
 
-:is( h1, h2, h3, h4, h5, h6 ):not( :first-child )
+:is( h1, h2, h3, h4, h5, h6
+   , blockquote
+   , p
+   , ul
+   , ol
+   , pre
+   )
   { margin-top : var( --line-height ) }
+
 h1, h2, h3, h4, h5, h6
 , blockquote
 , p
@@ -125,12 +167,16 @@ h1, h2, h3, h4, h5, h6
   { margin-bottom : var( --line-height ) }
 
 
-strong::before, strong::after
+b::before
+, b::after
+, strong::before
+, strong::after
   { content : '**'
   ; display : inline
   }
 
-i
+i::before
+, i::after
 , em::before
 , em::after
   { content : '_'
@@ -139,22 +185,19 @@ i
 
 
 a
-  { text-decoration : none
-  }
+  { text-decoration : none }
 a::before
-  { content : "["
+  { content : '['
   ; display : inline
-  ; color : var( --color )
   }
 a::after
-  { content : "](" attr(href) ")"
+  { content : '](' attr(href) ')'
   ; display : inline
-  ; color : var( --color )
   }
 
-code::before,
-code::after
-  { content : "`"
+code::before
+, code::after
+  { content : '`'
   ; display : inline
   }
 
@@ -173,7 +216,7 @@ hr
   ; margin-bottom : var( --line-height )
   }
 hr::after
-  { content : "----"
+  { content : '----'
   ; position : absolute
   ; top : 0
   ; left : 0
@@ -199,11 +242,11 @@ input[type=text]
 img
   { display : inline-block }
 img::before
-  { ; content : ~'"![" attr(alt)'
+  { ; content : '![' attr(alt)
   ; display : inline-block
   }
 img::after
-  { ; content : ~'"](" attr(src) ")"'
+  { ; content : '](' attr(src) ')'
   ; display : inline-block
   }
 
@@ -213,6 +256,11 @@ img::after
     h1 { display : block }
   }
 
+
 /* colors */
 h1, h2, h3, h4, h5, h6
   { color : var( --orange ) }
+a:any-link
+  { color : var( --rose ) }
+blockquote
+  { color : var( --green ) }

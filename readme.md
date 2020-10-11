@@ -4,7 +4,8 @@
 
 - leading symbols are unshifted
 - right-to-left support
-- uses CSS4 `:is()` [[?](https://developer.mozilla.org/en-US/docs/Web/CSS/:is#Browser_compatibility)]
+- uses CSS4 [`:is()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:is#Browser_compatibility)
+  and [`:has()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:has#Browser_compatibility)
 - default color theme is monokai
 
 
