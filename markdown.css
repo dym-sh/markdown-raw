@@ -10,6 +10,7 @@
 * { margin : 0
   ; padding : 0
   ; word-wrap : break-word
+  ; text-decoration : none
   ; color : var( --text )
   ; float : none
   ; font-size : var( --font-size, 16pt )
@@ -49,8 +50,8 @@ h1, h2, h3, h4, h5, h6
 
 :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )[dir=rtl]::before
 , [dir=rtl] :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
-, :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre ):dir(rtl)::before
-, :dir(rtl) :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
+/*, :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre ):dir(rtl)::before
+, :dir(rtl) :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before*/
   { right : unset
   ; left : 100%
   ; margin-right : unset
@@ -96,8 +97,7 @@ ol > li::before
 ol > li:has(ol:first-child)::before
   { display : none }
 ol > li > ol:first-child > li::before
-  { background : var( --bg )
-  }
+  { background : var( --bg ) }
 
 ol ol > li::before
   { content : counter( ol_lvl_1 ) '.' counter( ol_lvl_2 ) '.'
@@ -107,10 +107,10 @@ ol ol > li::before
 , ol[dir=rtl] ol > li::before
 , ol ol[dir=rtl] > li::before
 , ol ol > li[dir=rtl]::before
-, :dir(rtl) ol ol > li::before
+/*, :dir(rtl) ol ol > li::before
 , ol:dir(rtl) ol > li::before
 , ol ol:dir(rtl) > li::before
-, ol ol > li:dir(rtl)::before
+, ol ol > li:dir(rtl)::before*/
   { content : counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
   }
 
@@ -128,15 +128,18 @@ ol ol ol > li::before
 , ol ol[dir=rtl] ol > li::before
 , ol ol ol[dir=rtl] > li::before
 , ol ol ol > li[dir=rtl]::before
-, :dir(rtl) ol ol ol > li::before
+/*, :dir(rtl) ol ol ol > li::before
 , ol:dir(rtl) ol ol > li::before
 , ol ol:dir(rtl) ol > li::before
 , ol ol ol:dir(rtl) > li::before
-, ol ol ol > li:dir(rtl)::before
+, ol ol ol > li:dir(rtl)::before*/
   { content : counter( ol_lvl_3 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
   }
 
-
+[title]::after
+  { content : ' /*' attr(title) '*/'
+  ; display : inline
+  }
 
 h1, h2, h3, h4, h5, h6
 , blockquote
@@ -150,29 +153,55 @@ h1, h2, h3, h4, h5, h6
 :is( h1, h2, h3, h4, h5, h6 ):not(:first-child)
   { margin-top : calc( 2 * var( --line-height ) ) }
 
-b::before
-, b::after
-, strong::before
-, strong::after
+:is( b, strong )::before
+, :is( b, strong )::after
   { content : '**'
   ; display : inline
   }
+:is( b, strong )[title]::after
+  { content : '** /*' attr(title) '*/' }
 
-i::before
-, i::after
-, em::before
-, em::after
+:is( i, em )::before
+, :is( i, em )::after
   { content : '_'
   ; display : inline
   }
+:is( i, em )[title]::after
+  { content : '_ /*' attr(title) '*/' }
 
-[title]::after
-  { content : ' /*' attr(title) '*/'
+u::before
+, u::after
+  { content : '__'
   ; display : inline
   }
+u[title]::after
+  { content : '__ /*' attr(title) '*/' }
 
-a
-  { text-decoration : none }
+s::before
+, s::after
+  { content : '~~'
+  ; display : inline
+  }
+s[title]::after
+  { content : '~~ /*' attr(title) '*/' }
+
+del::before
+, del::after
+  { content : '--'
+  ; display : inline
+  }
+del[title]::after
+  { content : '~~ /*' attr(title) '*/' }
+
+ins::before
+, ins::after
+  { content : '++'
+  ; display : inline
+  }
+ins[title]::after
+  { content : '++ /*' attr(title) '*/' }
+
+
 a::before
   { content : '['
   ; display : inline
@@ -186,15 +215,14 @@ a[title]::after
   ; display : inline
   }
 
-code::before
-, code::after
+is( code, samp )::before
+, is( code, samp )::after
   { content : '`'
   ; display : inline
   }
 pre code::before
 , pre code::after
-  { content : none
-  }
+  { content : none }
 
 hr
   { position : relative
@@ -240,6 +268,11 @@ img::after
   { content : '](' attr(src) ')'
   ; display : inline-block
   }
+img[title]::after
+  { content : '](' attr(src) ') /*' attr(title) '*/'
+  ; display : inline-block
+  }
+
 
 /* firefox cannot put position absolute inside table-cell*/
 @-moz-document url-prefix()
@@ -251,6 +284,7 @@ img::after
 /* colors */
 :root
   { --red : hsl( 0, 93%, 59% )
+
   ; --orange : hsl( 32, 98%, 56% )
   ; --light-orange : hsl( 47, 100%, 79% )
   ; --dark-orange : hsl( 30, 83%, 34% )
@@ -259,12 +293,16 @@ img::after
   ; --dark-yellow : hsla( 54, 70%, 68%, 35% )
 
   ; --green : hsl( 80, 76%, 53% )
+
   ; --blue : hsl( 190, 81%, 67% )
+  ; --dark-blue : hsl( 190, 81%, 67%, 20% )
+
   ; --purple : hsl( 261, 100%, 75% )
   ; --rose : hsl( 338, 95%, 56% )
 
   ; --gray : hsl( 50, 11%, 41% )
-  ; --dark-gray : hsl( 50, 11%, 41%, 50% )
+  ; --light-gray : hsl( 50, 11%, 81% )
+  ; --dark-gray : hsl( 50, 11%, 21% )
   }
 
 abbr
@@ -275,14 +313,35 @@ a:any-link
   { color : var( --rose ) }
 blockquote
   { color : var( --green ) }
-pre, code
-  { color : var( --gray ) }
+pre, code, samp
+  { background : var( --dark-gray ) }
 ul > li::before
   { color : var( --red ) }
 ol > li::before
   { color : var( --purple ) }
 
 [title]::after
-, [title]::after::after
-  { color : var( --dark-gray ) }
+  { color : var( --gray ) }
+a[title]::after
+  { color : var( --rose ) }
 
+b, strong
+  { color : var( --red ) }
+i, em
+  { color : var( --blue ) }
+u
+  { color : var( --blue )
+  ; background : var( --dark-blue )
+  }
+s
+  { color : var( --gray )
+  ; background : var( --dark-gray )
+  }
+ins
+  { color : var( --bg )
+  ; background : var( --green )
+  }
+del
+  { color : var( --bg )
+  ; background : var( --red )
+  }
