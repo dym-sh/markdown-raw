@@ -137,8 +137,8 @@ ol ol ol > li::before
   }
 
 [title]::after
-  { content : ' /*' attr(title) '*/'
-  ; display : inline
+  { content : '/*' attr(title) '*/'
+  ; display : inline-block
   }
 
 h1, h2, h3, h4, h5, h6
@@ -159,7 +159,7 @@ h1, h2, h3, h4, h5, h6
   ; display : inline
   }
 :is( b, strong )[title]::after
-  { content : '** /*' attr(title) '*/' }
+  { content : '**/*' attr(title) '*/' }
 
 :is( i, em )::before
 , :is( i, em )::after
@@ -167,7 +167,7 @@ h1, h2, h3, h4, h5, h6
   ; display : inline
   }
 :is( i, em )[title]::after
-  { content : '_ /*' attr(title) '*/' }
+  { content : '_/*' attr(title) '*/' }
 
 u::before
 , u::after
@@ -175,7 +175,7 @@ u::before
   ; display : inline
   }
 u[title]::after
-  { content : '__ /*' attr(title) '*/' }
+  { content : '__/*' attr(title) '*/' }
 
 s::before
 , s::after
@@ -183,7 +183,7 @@ s::before
   ; display : inline
   }
 s[title]::after
-  { content : '~~ /*' attr(title) '*/' }
+  { content : '~~/*' attr(title) '*/' }
 
 del::before
 , del::after
@@ -191,7 +191,7 @@ del::before
   ; display : inline
   }
 del[title]::after
-  { content : '~~ /*' attr(title) '*/' }
+  { content : '~~/*' attr(title) '*/' }
 
 ins::before
 , ins::after
@@ -199,7 +199,7 @@ ins::before
   ; display : inline
   }
 ins[title]::after
-  { content : '++ /*' attr(title) '*/' }
+  { content : '++/*' attr(title) '*/' }
 
 
 a::before
@@ -211,15 +211,18 @@ a::after
   ; display : inline
   }
 a[title]::after
-  { content : '](' attr(href) ') /*' attr(title) '*/'
+  { content : '](' attr(href) ')/*' attr(title) '*/'
   ; display : inline
   }
 
-is( code, samp )::before
-, is( code, samp )::after
+:is( code, samp )::before
+, :is( code, samp )::after
   { content : '`'
   ; display : inline
   }
+:is( code, samp )[title]::after
+  { content : '`/*' attr(title) '*/' }
+
 pre code::before
 , pre code::after
   { content : none }
@@ -269,21 +272,15 @@ img::after
   ; display : inline-block
   }
 img[title]::after
-  { content : '](' attr(src) ') /*' attr(title) '*/'
+  { content : '](' attr(src) ')/*' attr(title) '*/'
   ; display : inline-block
-  }
-
-
-/* firefox cannot put position absolute inside table-cell*/
-@-moz-document url-prefix()
-  {
-    h1 { display : block }
   }
 
 
 /* colors */
 :root
   { --red : hsl( 0, 93%, 59% )
+  ; --dark-red : hsl( 0, 93%, 39% )
 
   ; --orange : hsl( 32, 98%, 56% )
   ; --light-orange : hsl( 47, 100%, 79% )
@@ -313,6 +310,8 @@ a:any-link
   { color : var( --rose ) }
 blockquote
   { color : var( --green ) }
+pre::before
+  { color : var( --gray ) }
 pre, code, samp
   { background : var( --dark-gray ) }
 ul > li::before
@@ -345,3 +344,5 @@ del
   { color : var( --bg )
   ; background : var( --red )
   }
+del[title]::after
+  { color : var( --dark-gray ) }
