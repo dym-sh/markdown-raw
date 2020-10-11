@@ -4,18 +4,6 @@
 
   ; --line-height : 1.3rem
   ; --font-size : 16pt
-
-  ; --red : hsl( 0, 93%, 59% )
-  ; --orange : hsl( 32, 98%, 56% )
-  ; --light-orange : hsl( 47, 100%, 79% )
-  ; --dark-orange : hsl( 30, 83%, 34% )
-  ; --yellow : hsl( 54, 70%, 68% )
-  ; --dark-yellow : hsla( 54, 70%, 68%, 35% )
-  ; --green : hsl( 80, 76%, 53% )
-  ; --blue : hsl( 190, 81%, 67% )
-  ; --purple : hsl( 261, 100%, 75% )
-  ; --rose : hsl( 338, 95%, 56% )
-  ; --gray : hsl( 50, 11%, 41% )
   }
 
 
@@ -149,14 +137,6 @@ ol ol ol > li::before
   }
 
 
-:is( h1, h2, h3, h4, h5, h6
-   , blockquote
-   , p
-   , ul
-   , ol
-   , pre
-   )
-  { margin-top : var( --line-height ) }
 
 h1, h2, h3, h4, h5, h6
 , blockquote
@@ -164,7 +144,9 @@ h1, h2, h3, h4, h5, h6
 , ul
 , ol
 , pre
-  { margin-bottom : var( --line-height ) }
+  { margin-top : var( --line-height )
+  ; margin-bottom : var( --line-height )
+  }
 
 
 b::before
@@ -200,9 +182,8 @@ code::before
   { content : '`'
   ; display : inline
   }
-
-pre code::before,
-pre code::after
+pre code::before
+, pre code::after
   { content : none
   }
 
@@ -258,9 +239,36 @@ img::after
 
 
 /* colors */
+:root
+  { --red : hsl( 0, 93%, 59% )
+  ; --orange : hsl( 32, 98%, 56% )
+  ; --light-orange : hsl( 47, 100%, 79% )
+  ; --dark-orange : hsl( 30, 83%, 34% )
+
+  ; --yellow : hsl( 54, 70%, 68% )
+  ; --dark-yellow : hsla( 54, 70%, 68%, 35% )
+
+  ; --green : hsl( 80, 76%, 53% )
+  ; --blue : hsl( 190, 81%, 67% )
+  ; --purple : hsl( 261, 100%, 75% )
+  ; --rose : hsl( 338, 95%, 56% )
+
+  ; --gray : hsl( 50, 11%, 41% )
+  ; --dark-gray : hsl( 50, 11%, 41%, 50% )
+  }
+
 h1, h2, h3, h4, h5, h6
   { color : var( --orange ) }
 a:any-link
   { color : var( --rose ) }
 blockquote
   { color : var( --green ) }
+pre, code
+  { color : var( --gray ) }
+ul > li::before
+  { color : var( --red ) }
+ol > li::before
+  { color : var( --purple ) }
+
+[title]::after
+  { color : var( --light-orange ) }
