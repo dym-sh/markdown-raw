@@ -15,8 +15,8 @@
 
 
 ## mirrors
-- [github](https://github.com/dym_sh/markdown-raw/)
-- [gitlab](https://gitlab.com/dym_sh/markdown-raw/)
+- [github](https://github.com/dym-sh/markdown-raw/)
+- [gitlab](https://gitlab.com/dym-sh/markdown-raw/)
 - [dym.sh](https://dym.sh/lab/markdown-raw/)
 - `hyper://f7a5f3d2f4ea8ed7c2b50da4b93e7563f93d05c93dc90f386609dcf3f3614b84/` [[?](https://beakerbrowser.com)]
 

@@ -33,29 +33,37 @@ body
   ; padding : 2em 10em
   }
 
+sub, sup
+  { font-size : 0.66em }
+
 h1, h2, h3, h4, h5, h6
 , blockquote
 , pre
 , ol
 , ul
 , li
+, article
   { position : relative }
 
 :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
+, aside
   { position : absolute
   ; right : 100%
   ; margin-right : 1em
   ; display : inline-block
+  ; text-align : right
   }
 
 :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )[dir=rtl]::before
 , [dir=rtl] :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before
+, [dir=rtl] aside, aside[dir=rtl]
 /*, :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre ):dir(rtl)::before
 , :dir(rtl) :is( h1, h2, h3, h4, h5, h6, blockquote, li, pre )::before*/
   { right : unset
   ; left : 100%
   ; margin-right : unset
   ; margin-left : 1em
+  ; text-align : left
   }
 h1::before
   { content : '#' }
@@ -133,8 +141,7 @@ ol ol ol > li::before
 , ol ol:dir(rtl) ol > li::before
 , ol ol ol:dir(rtl) > li::before
 , ol ol ol > li:dir(rtl)::before*/
-  { content : counter( ol_lvl_3 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
-  }
+  { content : counter( ol_lvl_3 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.' }
 
 [title]::after
   { content : '/*' attr(title) '*/'
@@ -215,6 +222,19 @@ a[title]::after
   ; display : inline
   }
 
+aside
+  { min-width : 9em }
+aside::before
+  { content : '#['
+  ; display : inline
+  }
+aside::after
+  { content : ']#'
+  ; display : inline
+  }
+
+
+
 :is( code, samp )::before
 , :is( code, samp )::after
   { content : '`'
@@ -222,6 +242,44 @@ a[title]::after
   }
 :is( code, samp )[title]::after
   { content : '`/*' attr(title) '*/' }
+
+abbr::before
+  { content : '[[' }
+abbr::after
+  { content : ']]' }
+abbr[title]::after
+  { content : ' | ' attr(title) ']]' }
+
+kbd::before
+  { content : '[' }
+kbd::after
+  { content : ']' }
+kbd[title]::after
+  { content : ']/*' attr(title) '*/' }
+
+var::before
+  { content : '{' }
+var::after
+  { content : '}' }
+var[title]::after
+  { content : '}/*' attr(title) '*/' }
+
+cite::before
+  { content : '>>' }
+cite::after
+  { content : '<<' }
+cite[title]::after
+  { content : '<</*' attr(title) '*/' }
+
+q::before
+  { content : '^[' }
+q::after
+  { content : ']' }
+q[cite]::after
+  { content : '](' attr(cite) ')' }
+q[cite][title]::after
+  { content : '](' attr(cite) ')/*' attr(title) '*/' }
+
 
 pre code::before
 , pre code::after
@@ -264,17 +322,11 @@ img
   /*; overflow : hidden*/
   }
 img::before
-  { content : '![' attr(alt)
-  ; display : inline-block
-  }
+  { content : '![' attr(alt) }
 img::after
-  { content : '](' attr(src) ')'
-  ; display : inline-block
-  }
+  { content : '](' attr(src) ')' }
 img[title]::after
-  { content : '](' attr(src) ')/*' attr(title) '*/'
-  ; display : inline-block
-  }
+  { content : '](' attr(src) ')/*' attr(title) '*/' }
 
 
 /* colors */
@@ -302,27 +354,32 @@ img[title]::after
   ; --dark-gray : hsl( 50, 11%, 21% )
   }
 
-abbr
-  { color : var( --light-orange ) }
-h1, h2, h3, h4, h5, h6
-  { color : var( --orange ) }
-a:any-link
-  { color : var( --rose ) }
-blockquote
-  { color : var( --green ) }
-pre::before
-  { color : var( --gray ) }
-pre, code, samp
-  { background : var( --dark-gray ) }
-ul > li::before
-  { color : var( --red ) }
-ol > li::before
-  { color : var( --purple ) }
-
 [title]::after
   { color : var( --gray ) }
 a[title]::after
   { color : var( --rose ) }
+a:any-link
+, img::before
+, img::after
+  { color : var( --rose ) }
+
+abbr, abbr[title]::after
+  { color : var( --light-orange ) }
+
+h1, h2, h3, h4, h5, h6
+  { color : var( --orange ) }
+
+blockquote, cite
+  { color : var( --green ) }
+pre, code, samp
+  { background : var( --dark-gray ) }
+pre::before
+  { color : var( --gray ) }
+
+ul > li::before
+  { color : var( --red ) }
+ol > li::before
+  { color : var( --purple ) }
 
 b, strong
   { color : var( --red ) }
@@ -333,9 +390,10 @@ u
   ; background : var( --dark-blue )
   }
 s
-  { color : var( --gray )
+  { color : var( --light-gray )
   ; background : var( --dark-gray )
   }
+
 ins
   { color : var( --bg )
   ; background : var( --green )
@@ -346,3 +404,21 @@ del
   }
 del[title]::after
   { color : var( --dark-gray ) }
+
+mark
+  { color : var( --bg )
+  ; background : var( --yellow )
+  }
+
+q, q[title]::after
+  { color : var( --green ) }
+
+kbd::before
+, kbd::after
+, var::before
+, var::after
+  { color : var( --gray ) }
+
+aside
+  { color : var( --yellow ) }
+
