@@ -11,7 +11,9 @@
 
 
 ## preview
-- [preview.html](./preview.html)
+[preview.html](./preview.html)
+
+![screenshot](screenshot.png)
 
 
 ## mirrors
