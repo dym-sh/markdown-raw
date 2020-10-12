@@ -1,9 +1,8 @@
 :root
   { --text : hsl( 60, 36%, 96% )
   ; --bg : hsl( 70, 8%, 15% )
-
-  ; --line-height : 1.3rem
   ; --font-size : 16pt
+  ; --line-height : 1.3em
   }
 
 
@@ -13,8 +12,8 @@
   ; text-decoration : none
   ; color : var( --text )
   ; float : none
-  ; font-size : var( --font-size, 16pt )
-  ; line-height : var( --line-height, 1.3em )
+  ; font-size : var( --font-size )
+  ; line-height : var( --line-height )
   ; font-weight : normal
   ; font-style : normal
   ; font-family : 'Consolas'
@@ -115,10 +114,7 @@ ol ol > li::before
 , ol[dir=rtl] ol > li::before
 , ol ol[dir=rtl] > li::before
 , ol ol > li[dir=rtl]::before
-/*, :dir(rtl) ol ol > li::before
-, ol:dir(rtl) ol > li::before
-, ol ol:dir(rtl) > li::before
-, ol ol > li:dir(rtl)::before*/
+/*, ol ol > li:dir(rtl)::before*/
   { content : counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.'
   }
 
@@ -136,11 +132,7 @@ ol ol ol > li::before
 , ol ol[dir=rtl] ol > li::before
 , ol ol ol[dir=rtl] > li::before
 , ol ol ol > li[dir=rtl]::before
-/*, :dir(rtl) ol ol ol > li::before
-, ol:dir(rtl) ol ol > li::before
-, ol ol:dir(rtl) ol > li::before
-, ol ol ol:dir(rtl) > li::before
-, ol ol ol > li:dir(rtl)::before*/
+/*, ol ol ol > li:dir(rtl)::before*/
   { content : counter( ol_lvl_3 ) '.' counter( ol_lvl_2 ) '.' counter( ol_lvl_1 ) '.' }
 
 [title]::after
@@ -316,7 +308,7 @@ input[type=text]
   ;
   }
 
-
+/* only works if image doesnt load */
 img
   { display : inline
   /*; overflow : hidden*/
@@ -413,10 +405,8 @@ mark
 q, q[title]::after
   { color : var( --green ) }
 
-kbd::before
-, kbd::after
-, var::before
-, var::after
+:is( kbd, var )::before
+, :is( kbd, var )::after
   { color : var( --gray ) }
 
 aside
