@@ -1,4 +1,4 @@
-# markdown.raw()
+# markdown-raw
 
 > CSS style to make HTML look like raw markdown
 
@@ -9,18 +9,17 @@
 - css-code itself is [haskell-styled](https://en.wikipedia.org/wiki/Indentation_style#Haskell_style)
 
 
+<a href='./preview.png'><img height=100 border=2 align='right' alt='preview' src='./preview.png'></a>
 ## preview
 - [preview.html](./preview.html)
-- [codepen](https://codepen.io/dym-sh/pen/XWKbYVP/left/)
-
-![screenshot](screenshot.png)
+- https://codepen.io/dym-sh/pen/XWKbYVP/left/?editors=1100
 
 
 ## mirrors
-- [github](https://github.com/dym-sh/markdown-raw/)
-- [gitlab](https://gitlab.com/dym-sh/markdown-raw/)
-- [dym.sh](https://dym.sh/lab/markdown-raw/)
-- `hyper://f7a5f3d2f4ea8ed7c2b50da4b93e7563f93d05c93dc90f386609dcf3f3614b84/` [[?](https://beakerbrowser.com)]
+- https://github.com/dym-sh/markdown-raw
+- https://gitlab.com/dym-sh/markdown-raw
+- https://dym.sh/markdown-raw
+- hyper://a6550ce6b9d002377ec9d17603cb70e3fa67e533204738831eb3a54557edc8a4 /[?](https://beakerbrowser.com)
 
 
 ## license
