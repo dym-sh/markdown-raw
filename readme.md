@@ -19,7 +19,7 @@
 - https://github.com/dym-sh/markdown-raw
 - https://gitlab.com/dym-sh/markdown-raw
 - https://dym.sh/markdown-raw
-- hyper://__ /[?](https://beakerbrowser.com)
+- hyper://1817fb8053b74b83673b6fa51c60f28069de3c7a2a5f4a7b76f9f0da3a6f0cf6 /[?](https://beakerbrowser.com)
 
 
 ## cross-posts
