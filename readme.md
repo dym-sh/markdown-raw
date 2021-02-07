@@ -9,7 +9,7 @@
 - css-code itself is [haskell-styled](https://en.wikipedia.org/wiki/Indentation_style#Haskell_style)
 
 
-<a href='./preview.png'><img height=100 border=2 align='right' alt='preview' src='./preview.png'></a>
+<a href='./preview.png'><img height=200 border=2 align='right' alt='preview' src='./preview.png'></a>
 ## preview
 - [preview.html](./preview.html)
 - https://codepen.io/dym-sh/pen/XWKbYVP/left/?editors=1100
@@ -19,7 +19,11 @@
 - https://github.com/dym-sh/markdown-raw
 - https://gitlab.com/dym-sh/markdown-raw
 - https://dym.sh/markdown-raw
-- hyper://a6550ce6b9d002377ec9d17603cb70e3fa67e533204738831eb3a54557edc8a4 /[?](https://beakerbrowser.com)
+- hyper://__ /[?](https://beakerbrowser.com)
+
+
+## cross-posts
+- https://reddit.com/r/Markdown/comments/lequ4y
 
 
 ## license

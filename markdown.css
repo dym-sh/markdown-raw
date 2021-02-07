@@ -32,9 +32,6 @@ body
   ; padding : 2em 10em
   }
 
-sub, sup
-  { font-size : 0.66em }
-
 h1, h2, h3, h4, h5, h6
 , blockquote
 , pre
@@ -190,7 +187,7 @@ del::before
   ; display : inline
   }
 del[title]::after
-  { content : '~~/*' attr(title) '*/' }
+  { content : '--/*' attr(title) '*/' }
 
 ins::before
 , ins::after
@@ -214,6 +211,7 @@ a[title]::after
   ; display : inline
   }
 
+
 aside
   { width : 9em }
 aside::before
@@ -224,7 +222,6 @@ aside::after
   { content : ']#'
   ; display : inline
   }
-
 
 
 :is( code, samp )::before
@@ -280,18 +277,50 @@ pre code::before
 hr
   { position : relative
   ; height : var( --line-height )
-  ; font-size : 0
-  ; line-height : 0
   ; overflow : hidden
   ; border : 0
+  ; margin-top : var( --line-height )
   ; margin-bottom : var( --line-height )
   }
 hr::after
   { content : '----'
   ; position : absolute
+  ; display : inline
   ; top : 0
   ; left : 0
   }
+
+sub, sup
+  { all : unset }
+sup::before
+  { content : '^('
+  ; display : inline
+  }
+sup::after
+  { content : ')'
+  ; display : inline
+  }
+sub::before
+  { content : 'v('
+  ; display : inline
+  }
+sub::after
+  { content : ')'
+  ; display : inline
+  }
+sup[title]::after
+  { content : ')/*' attr(title) '*/' }
+sub[title]::after
+  { content : ')/*' attr(title) '*/' }
+
+
+
+[dir=rtl] hr::after
+, hr[dir=rtl]::after
+  { right : 0
+  ; left : unset
+  }
+
 
 input[type=checkbox]
   {
@@ -407,6 +436,10 @@ q, q[title]::after
 
 :is( kbd, var )::before
 , :is( kbd, var )::after
+  { color : var( --gray ) }
+
+:is( sup, sub )::before
+, :is( sup, sub )::after
   { color : var( --gray ) }
 
 aside
